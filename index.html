@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OSS 101 - Introduction to Open Source Software | OSSPH</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.6.0/reveal.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.6.0/theme/black.min.css">
+    <style>
+        /* OSSPH Brand Font */
+        @font-face {
+            font-family: 'Molot';
+            src: url('assets/fonts/Molot.otf') format('opentype');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        :root {
+            /* OSSPH Brand Colors */
+            --ossph-primary: #0060a0;
+            --ossph-purple: #6f42c1;
+            --ossph-pink: #cb6ce6;
+            --ossph-dark: #2c3e50;
+            --ossph-light: #ffffff;
+            --ossph-bg-light: #f8f9fa;
+            --ossph-text-dark: #2c3e50;
+
+            /* Reveal.js Theme Variables */
+            --r-background-color: #ffffff;
+            --r-main-color: #2c3e50;
+            --r-heading-color: #0060a0;
+            --r-link-color: #0060a0;
+            --r-selection-background-color: #0060a0;
+            --r-heading-font: 'Molot', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+        }
+
+        /* Watermark background logo fixed to body */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 400px;
+            height: 400px;
+            background-image: url('assets/images/ossph-logo-main-transparent.png');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            opacity: 0.05;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .reveal {
+            position: relative;
+            z-index: 1;
+        }
+
+        .reveal {
+            color: var(--ossph-text-dark);
+            font-size: 28px;
+        }
+
+        .reveal h1, .reveal h2, .reveal h3 {
+            text-transform: none;
+            font-weight: 700;
+            font-family: 'Molot', sans-serif;
+        }
+
+        .reveal h1 {
+            background: linear-gradient(135deg, var(--ossph-primary) 0%, var(--ossph-purple) 50%, var(--ossph-pink) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-size: 2.5em;
+        }
+
+        .reveal h2 {
+            color: var(--ossph-primary);
+            font-size: 2em;
+        }
+
+        .reveal h3 {
+            color: var(--ossph-purple);
+            font-size: 1.5em;
+        }
+
+        .reveal p {
+            font-size: 0.9em;
+        }
+
+        .reveal .slides section {
+            text-align: left;
+            padding-bottom: 100px !important;
+        }
+
+        .reveal .slides section.center {
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Hide watermark on title/center slides */
+        body.hide-watermark::before {
+            display: none;
+        }
+
+        /* Enable scrolling for overflowing content */
+        .reveal .slides section.present {
+            overflow-y: auto !important;
+            max-height: 720px !important;
+        }
+
+        .reveal .slides {
+            overflow: visible !important;
+        }
+
+        .reveal ul {
+            margin-left: 0;
+        }
+
+        .reveal li {
+            margin-bottom: 0.5em;
+            font-size: 0.85em;
+        }
+
+        .highlight {
+            color: var(--ossph-primary);
+            font-weight: bold;
+        }
+
+        .emoji {
+            font-style: normal;
+        }
+
+        .two-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2em;
+        }
+
+        .box {
+            background: linear-gradient(135deg, rgba(0, 96, 160, 0.08) 0%, rgba(111, 66, 193, 0.05) 100%);
+            border-left: 4px solid var(--ossph-primary);
+            padding: 1em;
+            margin: 1em 0;
+            border-radius: 4px;
+            font-size: 0.9em;
+        }
+
+        .small-text {
+            font-size: 0.7em;
+        }
+
+        code {
+            background: rgba(0, 96, 160, 0.1);
+            padding: 0.2em 0.4em;
+            border-radius: 3px;
+            color: var(--ossph-purple);
+        }
+
+        .footer {
+            position: absolute;
+            bottom: 1em;
+            left: 1em;
+            font-size: 0.6em;
+            color: #6c757d;
+        }
+
+        /* OSSPH Logo */
+        .ossph-logo {
+            width: 200px;
+            height: auto;
+            margin: 0 auto 1.5em auto;
+            display: block;
+        }
+
+        .ossph-logo-small {
+            width: 80px;
+            height: auto;
+        }
+
+        /* Logo on all slides */
+        .slide-logo {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            width: 60px;
+            height: auto;
+            opacity: 0.6;
+            z-index: 10;
+        }
+
+        /* Presenter Info */
+        .presenter-info {
+            margin-top: 3em;
+            padding: 0.8em;
+            font-size: 0.75em;
+            color: #6c757d;
+            opacity: 0.85;
+        }
+
+        .presenter-info p {
+            margin: 0.3em 0;
+        }
+
+        .presenter-info a {
+            color: var(--ossph-purple);
+            text-decoration: none;
+        }
+
+        .presenter-info a:hover {
+            color: var(--ossph-pink);
+        }
+
+        /* Fun elements matching brand voice */
+        .fun-accent {
+            background: linear-gradient(90deg, var(--ossph-purple), var(--ossph-pink));
+            padding: 0.2em 0.6em;
+            border-radius: 4px;
+            display: inline-block;
+            color: white;
+        }
+
+        /* Gradient backgrounds for special slides */
+        .gradient-bg {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%) !important;
+        }
+
+        .gradient-accent {
+            background: linear-gradient(135deg, var(--ossph-purple) 0%, var(--ossph-pink) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: bold;
+        }
+
+        /* Section divider for better light theme visibility */
+        .section-divider {
+            background: linear-gradient(135deg, rgba(0, 96, 160, 0.15), rgba(111, 66, 193, 0.15));
+            padding: 2em;
+            border-radius: 8px;
+            margin: 1em 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="reveal">
+        <div class="slides">
+
+            <!-- Title Slide (Hardcoded) -->
+            <section class="center gradient-bg">
+                <center><img src="assets/images/ossph-logo-main-transparent.png" alt="OSSPH Logo" class="ossph-logo"></center>
+                <h1 style="font-size: 3em; margin: 0.5em 0;">OSS 101</h1>
+                <h3 style="color: var(--ossph-primary); font-size: 1.4em; margin: 0.5em 0;">Introduction to <br> Open Source Software</h3>
+                <!-- <p style="margin-top: 2em; font-size: 1.3em; color: var(--ossph-text-dark);">
+                    <span class="gradient-accent">Your friendly guide to open source</span> 🚀
+                </p>
+                <div class="presenter-info">
+                    <p>
+                        Presented by <strong>Joff Tiquez</strong>
+                        (<a href="https://jofftiquez.dev" target="_blank">jofftiquez.dev</a>)
+                        <br>
+                        <span class="emoji">🇵🇭</span> Open Source Software PH
+                    </p>
+                </div> -->
+            </section>
+
+            <!-- Presenter Slide (Hardcoded) -->
+            <section class="center gradient-bg">
+                <div style="display: flex; align-items: center; gap: 3em; max-width: 900px;">
+                    <!-- Photo placeholder - replace with actual photo later -->
+                    <div style="flex-shrink: 0;">
+                        <div style="width: 250px; height: 250px; border-radius: 50%; background: linear-gradient(135deg, var(--ossph-primary), var(--ossph-purple)); display: flex; align-items: center; justify-content: center; color: white; font-size: 4em; font-weight: bold; border: 5px solid white; box-shadow: 0 4px 20px rgba(0,0,0,0.15);">
+                            JT
+                        </div>
+                    </div>
+                    <!-- Presenter Info -->
+                    <div style="text-align: left;">
+                        <h2 style="margin: 0 0 0.5em 0; font-size: 2.5em;">Joff Tiquez</h2>
+                        <div style="font-size: 1.1em; line-height: 1.8;">
+                            <p style="margin: 0.5em 0;">
+                                <span class="emoji">👔</span> Founder of OSSPH
+                            </p>
+                            <p style="margin: 0.5em 0;">
+                                <span class="emoji">💻</span> Software Developer for 12 years
+                            </p>
+                            <p style="margin: 0.5em 0;">
+                                <span class="emoji">🌟</span> Open Source maintainer since 2015
+                            </p>
+                            <p style="margin: 1em 0 0.3em 0;">
+                                <span class="emoji">🔗</span> <a href="https://github.com/jofftiquez" target="_blank" style="color: var(--ossph-purple);">github.com/jofftiquez</a>
+                            </p>
+                            <p style="margin: 0.3em 0;">
+                                <span class="emoji">🌐</span> <a href="https://jofftiquez.dev" target="_blank" style="color: var(--ossph-purple);">jofftiquez.dev</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Dynamic Slides will be inserted here by JavaScript -->
+
+            <!-- Q&A Slide (Hardcoded) -->
+            <section class="center gradient-bg">
+                <h1>Let's Chat! 💬</h1>
+                <p style="margin-top: 1.5em; font-size: 1.2em; color: var(--ossph-text-dark);">
+                    Got questions? Confused about something?<br>
+                    <span class="gradient-accent">No question is too basic!</span>
+                </p>
+            </section>
+
+            <!-- Thank You Slide (Hardcoded) -->
+            <section class="center gradient-bg">
+                <h1>Thanks for hanging out! 🎉</h1>
+                <div class="box" style="margin-top: 2em; max-width: 800px; margin-left: auto; margin-right: auto;">
+                    <p style="font-size: 1.1em; margin-bottom: 1em;">
+                        <span class="emoji">🚀</span> Ready to make your first contribution?<br>
+                        <span class="gradient-accent">We'll be cheering you on!</span>
+                    </p>
+                    <p class="small-text" style="margin-top: 1em;">
+                        Find us online • Join the community • Ship some code
+                    </p>
+                </div>
+                <div style="margin-top: 2em;">
+                    <p style="font-size: 1.2em;">
+                        <span class="emoji">🇵🇭</span> <strong style="color: var(--ossph-primary);">Open Source Software PH</strong>
+                    </p>
+                    <p style="margin-top: 0.5em; color: var(--ossph-purple);">
+                        Your friendly neighborhood OSS community
+                    </p>
+                </div>
+            </section>
+
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.6.0/reveal.min.js"></script>
+    <script>
+        // Load and render slides from JSON
+        async function loadSlides() {
+            try {
+                const response = await fetch('slides.json');
+                const data = await response.json();
+
+                const slidesContainer = document.querySelector('.reveal .slides');
+                const titleSlide = slidesContainer.children[0];
+                const presenterSlide = slidesContainer.children[1];
+                const qaSlide = slidesContainer.children[slidesContainer.children.length - 2];
+                const thankYouSlide = slidesContainer.lastElementChild;
+
+                // Remove hardcoded slides temporarily
+                titleSlide.remove();
+                presenterSlide.remove();
+                qaSlide.remove();
+                thankYouSlide.remove();
+
+                // Clear existing content
+                slidesContainer.innerHTML = '';
+
+                // Re-add title and presenter slides
+                slidesContainer.appendChild(titleSlide);
+                slidesContainer.appendChild(presenterSlide);
+
+                // Generate slides from JSON
+                data.presentation.topics.forEach(topic => {
+                    topic.slides.forEach(slide => {
+                        const section = createSlide(slide);
+                        slidesContainer.appendChild(section);
+                    });
+                });
+
+                // Re-add Q&A and Thank You slides
+                slidesContainer.appendChild(qaSlide);
+                slidesContainer.appendChild(thankYouSlide);
+
+                // Initialize Reveal.js after slides are loaded
+                Reveal.initialize({
+                    hash: true,
+                    slideNumber: true,
+                    transition: 'slide',
+                    backgroundTransition: 'fade',
+                    controls: true,
+                    progress: true,
+                    center: false,
+                    width: 1280,
+                    height: 720,
+                    margin: 0.1,
+                    minScale: 0.2,
+                    maxScale: 2.0,
+                    overflow: 'scroll',
+                    keyboard: {
+                        40: () => { // Down arrow
+                            const currentSlide = document.querySelector('.reveal .slides section.present');
+                            if (currentSlide && currentSlide.scrollHeight > currentSlide.clientHeight) {
+                                const isAtBottom = currentSlide.scrollTop + currentSlide.clientHeight >= currentSlide.scrollHeight - 5;
+                                if (!isAtBottom) {
+                                    currentSlide.scrollTop += 50;
+                                    return false; // Prevent default navigation
+                                }
+                            }
+                            Reveal.down(); // Navigate to next slide if at bottom
+                        },
+                        38: () => { // Up arrow
+                            const currentSlide = document.querySelector('.reveal .slides section.present');
+                            if (currentSlide && currentSlide.scrollHeight > currentSlide.clientHeight) {
+                                const isAtTop = currentSlide.scrollTop <= 5;
+                                if (!isAtTop) {
+                                    currentSlide.scrollTop -= 50;
+                                    return false; // Prevent default navigation
+                                }
+                            }
+                            Reveal.up(); // Navigate to previous slide if at top
+                        }
+                    }
+                });
+
+                // Hide watermark on title slides
+                Reveal.on('slidechanged', event => {
+                    if (event.currentSlide.classList.contains('center')) {
+                        document.body.classList.add('hide-watermark');
+                    } else {
+                        document.body.classList.remove('hide-watermark');
+                    }
+                });
+
+                // Check initial slide
+                const initialSlide = document.querySelector('.reveal .slides section.present');
+                if (initialSlide && initialSlide.classList.contains('center')) {
+                    document.body.classList.add('hide-watermark');
+                }
+
+            } catch (error) {
+                console.error('Error loading slides:', error);
+            }
+        }
+
+        function createSlide(slideData) {
+            const section = document.createElement('section');
+
+            if (slideData.type === 'topic-title') {
+                // Topic title slide - center it
+                section.classList.add('center');
+                section.innerHTML = `
+                    <h2>${slideData.title}</h2>
+                    ${slideData.box ? createBox(slideData.box) : ''}
+                    ${slideData.note ? `<p class="small-text" style="margin-top: ${slideData.note.centered ? '2em; text-align: center' : '1.5em'};">${slideData.note.text}</p>` : ''}
+                `;
+            } else if (slideData.type === 'content') {
+                // Content slide
+                const emoji = slideData.emoji ? `<span class="emoji">${slideData.emoji}</span> ` : '';
+                section.innerHTML = `
+                    <h3>${emoji}${slideData.title}</h3>
+                    ${slideData.box ? createBox(slideData.box) : ''}
+                    ${slideData.list ? createList(slideData.list) : ''}
+                    ${slideData.note ? `<p class="small-text" style="margin-top: 1.5em;">${slideData.note.text}</p>` : ''}
+                `;
+            }
+
+            return section;
+        }
+
+        function createBox(boxData) {
+            let html = '<div class="box">';
+
+            if (boxData.title) {
+                html += `<p><strong>${boxData.title}</strong></p>`;
+            }
+
+            if (boxData.content) {
+                html += `<p>${boxData.content}</p>`;
+            }
+
+            if (boxData.list) {
+                if (Array.isArray(boxData.list)) {
+                    html += '<ul>';
+                    boxData.list.forEach(item => {
+                        if (typeof item === 'object' && item.emoji) {
+                            html += `<li><span class="emoji">${item.emoji}</span> ${item.text}</li>`;
+                        } else {
+                            html += `<li>${item}</li>`;
+                        }
+                    });
+                    html += '</ul>';
+                }
+            }
+
+            html += '</div>';
+            return html;
+        }
+
+        function createList(listData) {
+            let html = '<ul style="margin-top: 1.5em;">';
+
+            listData.forEach(item => {
+                if (typeof item === 'object' && item.emoji) {
+                    html += `<li><span class="emoji">${item.emoji}</span> ${item.text}</li>`;
+                } else {
+                    html += `<li>${item}</li>`;
+                }
+            });
+
+            html += '</ul>';
+            return html;
+        }
+
+        // Load slides when page is ready
+        document.addEventListener('DOMContentLoaded', loadSlides);
+    </script>
+</body>
+</html>
