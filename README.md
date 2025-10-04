@@ -7,15 +7,14 @@ A beginner-friendly web presentation about Open Source Software (OSS) for studen
 
 ## 🎯 Overview
 
-This 30-minute presentation covers:
+This presentation covers:
 - What is OSS and why it matters
-- **Why OSS is perfect for new developers** (portfolio building, learning, networking)
-- How to get started contributing
-- OSS licenses and governance
-- Popular OSS projects and communities
-- Career benefits and opportunities
+- Real-world examples of OSS you use daily
+- Why OSS matters (innovation, security, accessibility, community, transparency)
+- Understanding OSS licenses (MIT, Apache, GPL, BSD)
+- Hands-on exercise: Creating and reviewing pull requests
 
-**Key Feature:** Each example and topic is broken down into individual slides (100+ slides total), allowing you to:
+**Key Feature:** Each example and topic is broken down into individual slides (~30 slides total), allowing you to:
 - Explain each point thoroughly with dedicated time
 - Skip slides if you're running short on time
 - Deep-dive into specific areas based on audience interest
@@ -29,10 +28,12 @@ The presentation uses a **JSON-based content system** for easy editing:
 oss-101/
 ├── index.html              # HTML template with styles and JavaScript
 ├── slides.json             # Presentation content (EDIT THIS!)
-├── ossph-logo-main-transparent.png
-├── Molot.otf
-├── README.md
-└── index-backup.html       # Original static version (backup)
+├── README.md               # This file
+├── assets/
+│   ├── fonts/
+│   │   └── Molot.otf      # OSSPH brand font
+│   └── images/
+│       └── ossph-logo-main-transparent.png
 ```
 
 **Key Benefits:**
@@ -188,6 +189,7 @@ Add this object to the `topics` array in `slides.json`.
 - **Previous Slide**: Arrow Left or P
 - **First Slide**: Home
 - **Last Slide**: End
+- **Scroll Within Slide**: Arrow Down/Up (scrolls content first, then navigates when at top/bottom)
 
 ### View Options
 - **Overview Mode**: Press `ESC` or `O` to see all slides at once
@@ -198,63 +200,57 @@ Add this object to the `topics` array in `slides.json`.
 ### Other Controls
 - **Slide Number**: Displayed in bottom-right corner
 - **Progress Bar**: Shows at bottom of screen
+- **Scrolling**: Slides with overflow content are scrollable
 
 ## 📋 Presentation Structure
 
-**Total Slides: 100+ (30-minute presentation)**
+**Total Slides: ~30 slides**
 
-The presentation is divided into detailed sections with each topic broken down into individual slides:
+The presentation is divided into the following sections:
 
-### 1. Introduction (~5 min)
+### 1. Introduction
 - Title slide with OSSPH branding
-- What is OSS?
-- **You Already Use OSS** (9 slides)
-  - Individual slides for: Linux, Android, Firefox, WordPress, VS Code, React/Vue, Python/Node.js, Git
+- Presenter slide (Joff Tiquez bio)
+- What is OSS? (1 slide)
 
-### 2. Why It Matters (~8 min)
-- **Why Open Source Matters** (6 slides)
-  - Innovation, Security, Cost, Community, Transparency
-- **Why Perfect for New Developers** (6 slides)
-  - Learn from Real Code, Build Portfolio, Gain Experience, Network & Mentorship, Low Barrier
+### 2. You Already Use OSS (6 slides)
+- Topic introduction
+- Individual slides for:
+  - Linux - Operating system kernel
+  - Firefox - Privacy-focused browser
+  - WordPress - Website builder and CMS
+  - Visual Studio Code - Code editor
+  - Git - Version control system
 
-### 3. Getting Started (~15 min)
-- **Step 1: Choose a Project** (1 slide)
-- **Step 2: Understand the Project** (6 slides)
-  - README.md, CONTRIBUTING.md, CODE_OF_CONDUCT.md, Issues/PRs, Dev Environment
-- **Step 3: Make First Contribution** (9 slides)
-  - Fork, Clone, Branch, Changes, Commit, Push, Create PR, Respond to Feedback
+### 3. Why Open Source Matters (6 slides)
+- Topic introduction
+- Innovation Through Collaboration
+- Enhanced Security
+- Cost-Effective & Accessible
+- Global Community & Learning
+- Transparency & Trust
 
-### 4. Types of Contributions (~12 min)
-- **Non-Code Contributions** (5 slides)
-  - Documentation, Translations, Design/UX, Bug Reports, Community Support
-- **Code Contributions** (5 slides)
-  - Bug Fixes, New Features, Tests, Performance, Code Reviews
+### 4. Understanding OSS Licenses (7 slides)
+- Topic introduction
+- How to Tell if Software is Open Source
+- MIT License - Simple and permissive
+- Apache License 2.0 - With patent protection
+- GNU GPL - Copyleft license
+- BSD License - Very permissive
+- Choosing a License - Quick guide
 
-### 5. Licenses & Governance (~6 min)
-- Understanding OSS Licenses (1 slide)
-- **Individual License Types** (4 slides)
-  - MIT, Apache 2.0, GPL, BSD
-- Project Governance (1 slide)
+### 5. Hands-On Exercise (7 slides)
+- Topic introduction
+- Contribution Workflow - 9-step flowchart
+- Creating a Pull Request - Step-by-step guide
+- Writing a Good PR Description
+- Reviewing a Pull Request
+- PR Review Best Practices
+- Practice Time - First Contributions repo
 
-### 6. Popular Projects (~8 min)
-- **Beginner-Friendly Projects** (7 slides)
-  - freeCodeCamp, First Contributions, Django, React, VS Code, MDN Web Docs
-- OSS Communities & Programs (1 slide)
-
-### 7. Career Benefits (~4 min)
-- How OSS boosts career
-- Real impact statistics
-- Career paths
-
-### 8. Best Practices (~3 min)
-- Best practices
-- Common mistakes to avoid
-
-### 9. Conclusion (~3 min)
-- Next steps
-- Resources
-- Q&A
-- Thank you slide
+### 6. Conclusion
+- Q&A slide
+- Thank you slide with OSSPH branding
 
 ## 🎨 Customization
 
@@ -285,15 +281,15 @@ The presentation uses OSSPH brand colors with gradient accents:
 - **Code blocks**: Light blue background with purple text
 
 ### Logo & Typography
-The presentation now includes the official OSSPH branding:
+The presentation includes official OSSPH branding:
 
-- **Logo**: `ossph-logo-main-transparent.png` - Blue fist design with transparent background
-- **Font**: `Molot.otf` - Custom brand font used for all headings (H1, H2, H3)
+- **Logo**: `assets/images/ossph-logo-main-transparent.png` - Blue fist design with transparent background
+- **Font**: `assets/fonts/Molot.otf` - Custom brand font used for all headings (H1, H2, H3)
 
-The logo appears on:
-- Title slide (200px width)
-- Q&A slide (80px width)
-- Thank you slide (80px width)
+The logo appears:
+- Title slide - 200px width, centered
+- As a watermark - Fixed background on content slides (subtle, 5% opacity)
+- Watermark is hidden on topic title slides for cleaner presentation
 
 ### Theme
 To change the reveal.js theme, replace this line in `index.html`:
@@ -342,35 +338,42 @@ Think: *"Bringing snacks to hackathons and staying up late to help debug weird i
   - Each slide is self-contained - easy to pause for questions
   - Use the examples to relate to audience experience
 - **Examples**: Use local or relevant examples for your audience
-  - "Who has used Linux/Android/VS Code?" - build on their experience
+  - "Who has used Linux/Firefox/VS Code/Git?" - build on their experience
   - Share local success stories from Philippines OSS community
-- **Demos**: Consider showing:
-  - GitHub project exploration (live demo during "Choose a Project")
-  - How to find "good first issue" labels (show real examples)
-  - Making a fork and clone (walk through the actual steps)
-  - Creating a simple pull request (use First Contributions repo)
+- **Hands-On Exercise**:
+  - Guide participants through the First Contributions repo exercise
+  - Live demo: fork, clone, branch, commit, push, create PR
+  - Show real PR reviews and how to respond to feedback
+  - Use github.com/OSSPhilippines/first-contribution for practice
 
 ### Interactive Elements
-Consider adding:
-- Live GitHub project exploration
-- Show a real pull request workflow
-- Demonstrate finding beginner-friendly issues
-- Share success stories from your community
+Consider incorporating:
+- Live exploration of OSS projects on GitHub
+- Real-time pull request creation demo
+- Show actual PR reviews with constructive feedback examples
+- Share local OSSPH community success stories
+- Live license exploration (show LICENSE files in popular repos)
 
 ## 📚 Additional Resources to Share
 
-Mentioned in the presentation:
-- **Find Projects**: github.com/topics, firsttimersonly.com, goodfirstissue.dev
-- **Learn More**: opensource.guide, github.com/skills, freecodecamp.org
-- **Programs**: Google Summer of Code, Outreachy, Hacktoberfest
+Referenced in the presentation:
+- **Practice PR**: github.com/OSSPhilippines/first-contribution
+- **License Guide**: choosealicense.com
+- **GitHub Profiles**: github.com/jofftiquez
+- **Personal Sites**: jofftiquez.dev
 
 ## 🛠️ Technical Details
 
 - **Framework**: Reveal.js 4.6.0
 - **No Build Process**: Pure HTML/CSS/JS
-- **Font**: Molot.otf (OSSPH brand font) loaded locally
-- **Logo**: ossph-logo-main-transparent.png (transparent PNG)
-- **No External Dependencies**: Font and logo are local files
+- **Content System**: JSON-based dynamic slide loading
+- **Font**: Molot.otf (OSSPH brand font) loaded from `assets/fonts/`
+- **Logo**: ossph-logo-main-transparent.png from `assets/images/`
+- **Features**:
+  - Smart scrolling with arrow keys
+  - Watermark background (toggles on/off for different slide types)
+  - Centered topic title slides
+  - Organized assets folder structure
 - **Works Offline**: Fully self-contained presentation
 - **Mobile Friendly**: Responsive design
 - **Print Friendly**: Use browser print (Ctrl/Cmd + P) to create PDF
@@ -386,9 +389,10 @@ This presentation is open source. Feel free to:
 ## 🤝 Contributing
 
 Found a typo or want to improve the content?
-1. Edit the `index.html` file
-2. Test your changes
-3. Share your improvements!
+1. Edit `slides.json` for content changes
+2. Edit `index.html` for layout/styling changes
+3. Test your changes in a browser
+4. Share your improvements!
 
 ## 📧 Support
 
